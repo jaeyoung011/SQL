@@ -139,7 +139,7 @@ SELECT IF(height IS NOT NULL, height, 'N/A') FROM tb1
 ```
 ### 4. CASE 함수
 
-### 5 활용 
+### 5.  활용 
 ```
 select name, price, price/cost, 
 case when price/cost >=1 and price/cost <1.5 then 'C.저효율 메뉴'
@@ -152,6 +152,7 @@ LIMIT 6
 ```
 
 # 7. DISTINCT
+- SUBSTRING 함수를 잘 활용을 해야한다.
 
 ```
 select DISTINCT(address) from copang_main.member;
