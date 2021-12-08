@@ -151,5 +151,15 @@ order by efficiency DESC, price ASC
 LIMIT 6
 ```
 
-# 7.
+# 7. DISTINCT
+
+```
+select DISTINCT(address) from copang_main.member;
+# 의미가 없다.
+# => 주요 지역들의 고유값을 보고 싶으면
+
+select DISTINCT(SUBSTRING(address, 1, 2)) from copang_main.member;
+# address 컬럼에서 1번째부터 2글자를 추출해라. 그러면 첫 두글자를 기준으로 distinct 가 된다.
+```
+
 
