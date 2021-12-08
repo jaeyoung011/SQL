@@ -28,5 +28,32 @@ Like 문
 - https://dev.mysql.com/doc/refman/8.0/en/regexp.html#operator_regexp
 
 
+#2 NULL 값들의 활용
+
+# 2. NULL 값들의 활용
+
+```
+
+select * from copang_main.member
+    WHERE height IS NULL
+    OR weight IS NULL
+    OR address IS NULL;
+```
+
+
+- 이렇게 빠져있는 고객 들한테 채워달라는 메일을 써달라 할수 있다.
+
+### COALESCE
+
+```
+select
+    COALESCE(height, '####')
+    COALESCE(weight, '----')
+    COALESCE(address, '@@@')
+FROM copang_main.member;
+```
+
+- COALESCE -> NULL 이 있으면 저단어로 대체 해라.
+
 
 
