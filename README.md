@@ -189,8 +189,89 @@ RPAD 함수는 아래 그림처럼 LPAD 함수와 반대로 문자열의 오른�
 - RTRIM : 오른쪽 공백 삭제
 - TRIM : 왼쪽, 오른쪽 양쪽 다 공백 삭제
 
-# 9. 
+# 9. GROUP BY
 
+### 1) GROUP BY 기초 1
+```
+SELECT gender FROM copang_main.member GROUP BY gender;
+-젠더 컬럼을 기준으로 그룹핑 됐다.
+distinct와 비슷하지만 전혀 다르다.
 
+SELECT gender, COUNT(*) FROM copang_main.member GROUP BY gender;
+
+SELECT gender, COUNT(*), AVG(height) FROM copang_main.member GROUP BY gender;
+
+SELECT gender, 
+    COUNT(*), 
+    AVG(height),
+    MIN(weight)
+    FROM copang_main.member
+    GROUP BY gender;
+
+- GROUP BY 와 함께쓰면 각 그룹에 대해서 각각 사용되는걸 명심해야한다!
+```
+### 2) GROUP BY 기초 2
+```
+SELECT 
+    SUBSTRING(address, 1, 2) as region,
+    COUNT(*)
+FROM copang_main.member 
+GROUP BY SUBSTRING(address, 1, 2);
+=> 서울에 살면 무조건 같은 그룹
+
+### GROUP BY 에서 여러개의 컬럼을 사용 할수도 있다.
+
+SELECT 
+    SUBSTRING(address, 1, 2) as region,
+    gender,
+    COUNT(*)
+FROM copang_main.member 
+GROUP BY 
+    SUBSTRING(address, 1, 2),
+    gender;
+=> 서울에 살더라도 여성인지, 남성인지에 따라 나누어 진다.
+```
+
+### 3) GROUP BY 기초3
+```
+#EX1)
+SELECT 
+    SUBSTRING(address, 1, 2) as region,
+    gender,
+    COUNT(*)
+FROM copang_main.member 
+GROUP BY 
+    SUBSTRING(address, 1, 2),
+    gender
+HAVING region = '서울' # Having ~을 가지고 있는 : '서울'을 가지고 있는
+
+#EX2)
+SELECT 
+    SUBSTRING(address, 1, 2) as region,
+    gender,
+    COUNT(*)
+FROM copang_main.member 
+GROUP BY 
+    SUBSTRING(address, 1, 2),
+    gender
+HAVING 
+    region = '서울'
+    AND gender = 'm';
+- 서울에 사는 남성 그룹만 조회
+
+#EX3)
+SELECT 
+    SUBSTRING(address, 1, 2) as region,
+    gender,
+    COUNT(*)
+FROM copang_main.member 
+GROUP BY 
+    SUBSTRING(address, 1, 2),
+    gender
+HAVING region IS NOT NULL
+ORDER BY
+    region ASC
+    gender DESC;
+```
 
 
