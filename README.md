@@ -110,10 +110,32 @@ FROM copang_main.member;
 ORDER BY obesity_check ASC;
 ```
 
-# 6. 
+# 6. NULL을 다른 값으로 변환하는 다양한 함수들
 
+### 1.COALESCE 함수
+- 정규함수이다 , MYSQL 뿐만 아니라 다른 SQL 문법에도 적용 가능
 
+```
+SELECT COALESCE(weight , 'N/A') FROM tb1
 
+# 다른 방식 사용
+SELECT COALESCE(weight, weight * 2.5, 'N/A') FROM tb1
+```
 
+### 2. IFNULL 함수
+```
+SELECT IFNULL(weight, 'N/A') FROM tb1
+# 그러니까 weight 컬럼이 NULL이면 'N/A'를 출력하고, NULL이 아니면 height 컬럼의 값을 그대로 출력하죠.
+```
+
+### 3. IF 함수
+- IF 함수는 가장 첫 번째 인자로 어떤 조건식이 옵니다. 만약 그 조건식의 결과가 True라면 두 번째 인자를 리턴하고, False라면 세 번째 인자를 리턴.
+
+```
+SELECT IF(height IS NOT NULL, height, 'N/A') FROM tb1
+```
+### 4. CASE 함수
+
+# 7. 
 
 
