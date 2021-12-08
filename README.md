@@ -1,4 +1,7 @@
 # SQL
+
+#### 참조 : 코드잇 , Leetcode, 블로그  (추가 참조시 추가)
+
 Practice_SQL
 
 문법 정리
@@ -136,6 +139,17 @@ SELECT IF(height IS NOT NULL, height, 'N/A') FROM tb1
 ```
 ### 4. CASE 함수
 
-# 7. 
+### 5 활용 
+```
+select name, price, price/cost, 
+case when price/cost >=1 and price/cost <1.5 then 'C.저효율 메뉴'
+    when price/cost >= 1.5 and price/cost < 1.7 then 'B.중효율 메뉴'
+    when price/cost >=1.7 then 'A.고효율 메뉴'
+end as 'efficiency'
+from pizza_price_cost
+order by efficiency DESC, price ASC
+LIMIT 6
+```
 
+# 7.
 
