@@ -155,12 +155,42 @@ LIMIT 6
 - SUBSTRING 함수를 잘 활용을 해야한다.
 
 ```
-select DISTINCT(address) from copang_main.member;
 # 의미가 없다.
-# => 주요 지역들의 고유값을 보고 싶으면
+select DISTINCT(address) from copang_main.member;
+```
 
+### 주요 지역들의 고유값을 보고 싶으면 
+```
 select DISTINCT(SUBSTRING(address, 1, 2)) from copang_main.member;
 # address 컬럼에서 1번째부터 2글자를 추출해라. 그러면 첫 두글자를 기준으로 distinct 가 된다.
 ```
+
+# 8. 문자열 관련 함수들
+
+### 1. LENGTH 함수
+- LENGTH 함수는 문자열의 길이를 구해줍니다.
+
+### 2. UPPER, LOWER 함수
+- UPPER는 문자열을 모두 대문자로 바꿔서 보여주는 함수이고, LOWER는 문자열을 모두 소문자로 바꿔서 보여주는 함수입니다.
+
+### 3. LPAD, RPAD 함수
+- 이 두 함수는 문자열의 왼쪽 또는 오른쪽을 특정 문자열로 채워주는 함수입니다.
+LPAD는 LEFT(왼쪽) + PADDING(채우기)의 줄임말, RPAD는 RIGHT(오른쪽) + PADDING(채우기)의 줄임말인데요.
+예를 들어 LPAD(age, 10, ’0’)는 age 컬럼의 값을, 왼쪽에 문자 0을 붙여서 총 10자리로 만드는 함수입니다.
+보통 어떤 숫자의 자릿수를 맞출 때 자주 사용하는 함수입니다. 아래 그림을 보면 무슨 뜻인지 바로 이해할 수 있습니다.
+그런데 age 컬럼의 데이터 타입은 숫자를 나타내는 INT 형이었죠? 어떻게 숫자를 문자열 함수의 인자로 넣었는데 잘 작동한 걸까요?
+비록 숫자이더라도 문자열 함수 안에 인자로 넣어주면 그 값이 자동으로 문자열로 형 변환이 되어 계산됩니다. 참고하세요.
+RPAD 함수는 아래 그림처럼 LPAD 함수와 반대로 문자열의 오른쪽을 채워주는 함수입니다.
+
+
+### 4. TRIM, LTRIM, RTRIM 함수
+- 이 함수들은 문자열에 존재하는 공백을 제거하는 함수들입니다.
+- LTRIM : 왼쪽 공백 삭제
+- RTRIM : 오른쪽 공백 삭제
+- TRIM : 왼쪽, 오른쪽 양쪽 다 공백 삭제
+
+# 9. 
+
+
 
 
