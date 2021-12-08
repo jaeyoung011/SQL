@@ -1,6 +1,8 @@
 # SQL
 Practice_SQL
 
+문법 정리
+
 
 # 1. 이스케이핑(escaping) 문제
 Like 문
@@ -18,3 +20,13 @@ Like 문
 
 ### 4) % 이스케이핑
 - '%\%%'
+
+
+# 정규식 관련 문법
+- https://velog.io/@gillog/MySQL-REGEXPRegular-Expression%EC%A0%95%EA%B7%9C-%ED%91%9C%ED%98%84%EC%8B%9D
+- https://wikidocs.net/1642
+- https://dev.mysql.com/doc/refman/8.0/en/regexp.html#operator_regexp
+
+
+
+
