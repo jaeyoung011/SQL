@@ -273,5 +273,30 @@ ORDER BY
     region ASC
     gender DESC;
 ```
+### 4) GROUP BY 주의 사항
+- (1) GROUP BY 절 뒤에 쓴 컬럼 이름들만, SELECT 절 뒤에도 쓸 수 있다.
+
+- (2) 대신 SELECT 절 뒤에서 집계 함수에 그 외의 컬럼 이름을 인자로 넣는 것은 허용된다.
+
+# 10. SELECT 문의 실행 순서
+
+- 각 절들을, 더 앞에 나와야 하는 순서대로 써보겠습니다. 
+
+##### SELECT, FROM, WHERE ,GROUP BY,HAVING ,ORDER BY,LIMIT 
+
+- 사실은 아래의 순서대로 해석 및 실행된다는 사실입니다. 
+
+#### FROM, WHERE ,GROUP BY, HAVING ,SELECT, ORDER BY, LIMIT 
+
+#### 어떤 식으로 해석 및 실행되는지를 하나씩 차례대로 살펴보면 다음과 같습니다.
+
+- FROM : 어느 테이블을 대상으로 할 것인지를 먼저 결정합니다. 
+- WHERE : 해당 테이블에서 특정 조건(들)을 만족하는 row들만 선별합니다. 
+- GROUP BY : row들을 그루핑 기준대로 그루핑합니다. 하나의 그룹은 하나의 row로 표현됩니다.
+- HAVING : 그루핑 작업 후 생성된 여러 그룹들 중에서, 특정 조건(들)을 만족하는 그룹들만 선별합니다. 
+- SELECT : 모든 컬럼 또는 특정 컬럼들을 조회합니다. SELECT 절에서 컬럼 이름에 alias를 붙인 게 있다면, 이 이후 단계(ORDER BY, LIMIT)부터는 해당 alias를 사용할  수 있습니다.
+- ORDER BY : 각 row를 특정 기준에 따라서 정렬합니다. 
+- LIMIT : 이전 단계까지 조회된 row들 중 일부 row들만을 추립니다. 
+
 
 
