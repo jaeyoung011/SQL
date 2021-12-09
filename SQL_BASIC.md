@@ -300,3 +300,72 @@ ORDER BY
 
 
 
+# 서브쿼리 
+
+### 1) 예시
+```
+SELECT i.id, i.name, AVG(star) AS avg_star
+FROM item AS i LEFT OUTER JOIN review AS r
+on r.item_id = i.id
+GROUP BY i.id, i.name
+HAVING avg_star < (SELECT AVG(star) FROM review) #sub_query
+ORDER BY avg_star DESC;
+# subquery 는 () 를 꼭 써주어야한다!
+```
+
+### 2) SELECT 절에 있는 서브쿼리
+# 가장 비싼 것 구할때
+
+```
+SELECT id,
+    name, 
+    price,
+    (SELECT MAX(price) FROM item)
+FROM copang_main.item;
+# 가장 비싼 컬럼으로 price 와의 차이를 비교하는대 쓸수있다.
+
+SELECT id,
+    name, 
+    price,
+    (SELECT AVG(price) FROM item) AS avg_price
+FROM copang_main.item;
+#평균이랑 얼마나 차이나는 지 알아볼때 쓸수있다.
+```
+
+### 3) WHERE 절에 있는 서브 쿼리
+
+```
+#EX1)
+SELECT
+    id,
+    name,
+    price,
+    (SELECT AVG(price) FROM item) AS avg_price
+FROM copang_main.item
+WHERE price > (SELECT AVG(price) FROM item);
+
+#EX2) 가장 비싼 아이템
+SELECT id, name, price
+FROM item
+WHERE price = (SELECT MAX(price) FROM item);
+
+#EX3) 가장 싼 아이템
+SELECT id, name, price
+FROM item
+WHERE price = (SELECT MIN(price) FROM item);
+```
+### 4) WHERE 절에 있는 서브쿼리2
+
+```
+#Q) 코팡의 상품 중에서 리뷰가 최소 3개이상 달린 상품들의 정보만 보고 싶다면?
+# 시작을 JOIN 으로 생각했다면 , 시작은 좋다!
+SELECT * FROM item
+WHERE id IN #IN 이 있으며 그뒤에있는 값들중 하나라도 같으면 조건 만족 
+(
+SELECT item_id
+FROM review
+GROUP BY item_id HAVING count(*) >=3
+)
+```
+
+
