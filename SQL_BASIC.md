@@ -447,5 +447,9 @@ inner join member m on m.id = r.mem_id
 - INNER JOIN 을 줄여쓰면 그냥 JOIN 이 된다.
 
 
+# 추가 문법들
 
+## UNION , UNION ALL
+- UNION 은 중복 없이 
+- UNION ALL 은 중복도 포함해서 나타내 
 
