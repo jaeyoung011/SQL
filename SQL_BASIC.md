@@ -441,6 +441,10 @@ inner join member m on m.id = r.mem_id
 #member 는 review 의 member_id 와
 #item 는 review 의 item_id와 맞추어 주어야 join 이확실하게 된다.
 ```
+#### 9) 서브쿼리의 중첩과 그 문제점.
+
+- LEFT OUTER JOIN 을 줄여쓰면 LEFT JOIN 이 된다.
+- INNER JOIN 을 줄여쓰면 그냥 JOIN 이 된다.
 
 
 
