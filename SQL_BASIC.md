@@ -300,7 +300,7 @@ ORDER BY
 
 
 
-# 서브쿼리 
+# 11.서브쿼리 
 
 ### 1) 예시
 ```
@@ -367,5 +367,81 @@ FROM review
 GROUP BY item_id HAVING count(*) >=3
 )
 ```
+
+### 5) WHERE col > ANY(SOME) , ALL 의미
+
+- SUBQUERY 결과값중 단 하나의(ANY) 값보다도 크다면 True를 리턴
+- SUBQUERY 모든 값보다(ALL) 커야 True를 리턴
+
+### 6) FROM 절에 있는 서브쿼리
+
+```
+# 서브쿼리가 테이블 형태의 결과를 리턴하기도 한다.
+
+SELECT
+    SUBSTRING(address, 1, 2) AS region,
+    COUNT(*) AS review_count
+FROM review AS r LEFT OUTER JOIN member as m
+on r.mem_id = m.id
+GROUP BY SUBSTRING(address, 1, 2)
+HAVING region is NOT NULL
+    AND region != '안드';
+
+# subquery 로 만들어보자
+
+SELECT 
+    AVG(review_count),
+    MAX(review_count),
+    MIN(review_count)
+FROM
+(
+SELECT
+    SUBSTRING(address, 1, 2) AS region,
+    COUNT(*) AS review_count
+FROM review AS r LEFT OUTER JOIN member as m
+on r.mem_id = m.id
+GROUP BY SUBSTRING(address, 1, 2)
+HAVING region is NOT NULL
+    AND region != '안드') AS review_count_summary;  
+
+# 그러면 컬럼별로 AVG, MAX, MIN 이 각각 도출 된다.
+
+#derived table -> subquery로 새롭게 도출된 테이블
+*주의* derived table 에는 꼭 alias를 붙여 주어야 한다!
+```
+
+### 7)  EXISTS, NOT EXISTS와 상관 서브쿼리
+- in 과 비슷하지만 성능은 더 좋다.
+
+### 8) 예시
+
+```
+
+-- SELECT MAX(copang_report.price) max_price, AVG(copang_report.star) avg_star,
+-- count(distinct(copang_report.email)) distinct_email_count
+-- FROM 
+-- (
+-- select i.price , r.star , m.email from member m
+-- inner join item i on i.id = m.id
+-- inner join review r on i.id = r.id
+-- ) as copang_report
+
+#오답 => 조인의 기준이 이상하기때문이다.
+
+#정답
+SELECT MAX(copang_report.price) max_price, AVG(copang_report.star) avg_star,
+count(distinct(copang_report.email)) distinct_email_count
+FROM 
+(
+select i.price , r.star , m.email from review r
+inner join item i on r.item_id = i.id
+inner join member m on m.id = r.mem_id
+) as copang_report
+
+#member 는 review 의 member_id 와
+#item 는 review 의 item_id와 맞추어 주어야 join 이확실하게 된다.
+```
+
+
 
 
